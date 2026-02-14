@@ -34,9 +34,9 @@ public:
     static string GetSystemDateTimeString()
     {
         time_t t = time(0);
-        tm now; // بنعرف كائن tm عادي مش Pointer
+        tm now; 
 
-        // الدالة دي بتاخد عنوان الكائن وعنوان الوقت
+        
         localtime_s(&now, &t);
 
         short Day, Month, Year, Hour, Minute, Second;
@@ -45,17 +45,14 @@ public:
         Month = now.tm_mon + 1;
         Day = now.tm_mday;
 
-        // التعامل مع نظام الـ 12 ساعة
+      
         Hour = now.tm_hour % 12;
         if (Hour == 0) Hour = 12;
 
         Minute = now.tm_min;
         Second = now.tm_sec;
 
-        return (to_string(Day) + "/" + to_string(Month) + "/"
-            + to_string(Year) + " - "
-            + to_string(Hour) + ":" + to_string(Minute)
-            + ":" + to_string(Second));
+        return (to_string(Day) + "/" + to_string(Month) + "/" + to_string(Year) + " - " + to_string(Hour) + ":" + to_string(Minute) + ":" + to_string(Second));
     }
 
 

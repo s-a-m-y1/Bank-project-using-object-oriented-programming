@@ -10,7 +10,7 @@ class clsUser :public clsPerson
 {
 
 private:
-    //__________dateMembers________________//
+    //__________dataMembers________________//
     enum _EnMode { Eempty = 0, Eupdate = 1, EAdd = 2 };
     _EnMode _Mode;
     string _UserName = "";//This is "" Garbge value
@@ -29,7 +29,7 @@ private:
     string _prepareLoginRecordingLine()
     {
         string Line = "";
-        Line += _UserName + " - " + _Password + " - " + to_string(_Permisson) + " - DateTime : " + clsDate::GetSystemDateTimeString();
+        Line += clsDate::GetSystemDateTimeString() + "//" + _UserName + "//" + _Password + "//" + to_string(_Permisson);
         return Line;
     }
 
@@ -39,11 +39,13 @@ private:
         vector<string> VUser = clsString::Split(Line, Sepretor);
         if (VUser.size() >= 7)
         {
+
             return clsUser(_EnMode::Eupdate, VUser[0], VUser[1], VUser[2], VUser[3], VUser[4], VUser[5], stoi(VUser[6]));
         }
         return _ConvertEmptyToUserObject();
 
     }
+
 
     string _LineToSend(clsUser User, string Sepretor = "/")
     {
@@ -116,8 +118,63 @@ private:
         _saveData(Vuser);
     }
 
+ 
+
 public:
-    enum EnPermisson { P_Full = -1, P_ListClient = 1, P_AddClient = 2, P_DeleteClient = 4, P_UpdateClient = 8, P_FindClient = 16, P_Tranactions = 32, P_ManageUsers = 64 };
+    //_______________Layert_____________//
+  static struct St_DataSeachon
+    {
+        string UserName = "", Password = "", DateTime = "";
+        int Permisson = 0;
+    };
+  static  St_DataSeachon _ConvetLIne(string Line, string Sepretor = "//")
+    {
+        St_DataSeachon Data;
+        vector<string> VUser = clsString::Split(Line, Sepretor);
+        if (VUser.size() >= 4)
+        {
+            Data.DateTime = VUser[0];
+            Data.UserName = VUser[1];
+            Data.Password = VUser[2];
+            Data.Permisson = stoi(VUser[3]);
+        }
+
+        return Data;
+    }
+
+     void RegsterLogin()
+     {
+         fstream Load;
+         string Line = _prepareLoginRecordingLine();
+         Load.open("sessions.txt", ios::out | ios::app);
+         if (Load.is_open())
+         {
+             Load << Line << endl;
+         }
+         Load.close();
+     }
+     static  vector<St_DataSeachon>LoadLoginsessions()
+     {
+         fstream Load; vector<St_DataSeachon>VSeachons;
+         Load.open("sessions.txt", ios::in);
+         if (Load.is_open())
+        {
+             string Line = "";
+             while (getline(Load , Line))
+             {
+                 if (!Line.empty())
+                 {
+                     VSeachons.push_back(_ConvetLIne(Line));
+                 }
+
+             }
+             Load.close();
+         }
+         return VSeachons;
+     }
+//_____________End______________//
+
+    enum EnPermisson { P_Full = -1, P_ListClient = 1, P_AddClient = 2, P_DeleteClient = 4, P_UpdateClient = 8, P_FindClient = 16, P_Tranactions = 32, P_ManageUsers = 64   , P_Register=128 };
     bool IsEmpty()
     {
         return (_Mode == _EnMode::Eempty);
@@ -126,18 +183,7 @@ public:
     {
         return (_Mode == _EnMode::Eupdate);
     }
-    void RegsterLogin()
-    {
-        fstream Load;
-        string Line = _prepareLoginRecordingLine();
-        Load.open("sessions.txt", ios::out | ios::app);
-        if (Load.is_open())
-        {
-            Load << Line << endl;
-        }
-        Load.close();
-    }
-
+  
     clsUser(_EnMode Mode, string firstName, string LastName, string Email, string Phone, string UserName, string Password, int Permisson) :clsPerson(firstName, LastName, Email, Phone)
     {
         _Mode = Mode;

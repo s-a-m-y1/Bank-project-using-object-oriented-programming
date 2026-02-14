@@ -35,6 +35,9 @@ C:\Users\SAMY\source\repos\main\main\clsInputValidate.h(113,16): warning C4244: 
 C:\Users\SAMY\source\repos\main\main\clsInputValidate.h(117,26): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   (compiling source file 'main.cpp')
   
+C:\Users\SAMY\source\repos\main\main\clsUser.h(125,17): warning C4091: 'static ': ignored on left of 'clsUser::St_DataSeachon' when no variable is declared
+  (compiling source file 'main.cpp')
+  
 C:\Users\SAMY\source\repos\main\main\clsBankClient.h(274,28): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
   (compiling source file 'main.cpp')
   

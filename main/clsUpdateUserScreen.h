@@ -103,6 +103,12 @@ private:
         {
             Permisions += clsUser::EnPermisson::P_ManageUsers;
         }
+        cout << "Do you want Login Register Users Access [y/n] ? ";
+        cin >> ws >> What;
+        if (What == 'y' || What == 'Y')
+        {
+            Permisions += clsUser::EnPermisson::P_Register;
+        }
         return Permisions;
     }
 
