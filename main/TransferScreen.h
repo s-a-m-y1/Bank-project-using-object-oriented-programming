@@ -16,87 +16,82 @@ private:
 		cout << "=======:)=========" << endl;
 		cout << endl;
 	}
+	static string ReadAccountNumber()
+	{
+		string AccountNumber = "";
+		
+		AccountNumber = clsInputValidate::ReadString();
+		return AccountNumber;
+	}
+	static float ReadAccountbanance()
+	{		
+		float Accountbanance = 0;
+		cout << "Enter Trancfare Amount :  ";
+		Accountbanance = clsInputValidate::ReadFloatNumber();
+		return Accountbanance;
+	}
 public:
 	static void ShowTransfareScreen()
 	{
 		_DrawScreenHeader("Transfare Screen ");
-		double Pass = 0;
-		double pass2 = 0;
-		double ReadAccountbanance = 0;
 		string AccountNumber = "";
-
 		cout << "Please Enter Account Number to Transfare From :";
-		AccountNumber = clsInputValidate::ReadString();
+		AccountNumber = ReadAccountNumber();
 		while (!clsBankClient::isClientExist(AccountNumber))
 		{
-			cout << "Invaled Account number Try again :)";
-			AccountNumber = clsInputValidate::ReadString();
+			cout << "=================:)===================" << endl;
+			cout << "Invaled Account number Try again :)"<<endl;
+			cout << "=================:)===================" << endl;
+			AccountNumber = ReadAccountNumber();
 		}
+
 		clsBankClient CLient1 = clsBankClient::Find(AccountNumber);
 		_PrintClientCard(CLient1);
 
 		cout << "Please Enter Account Number to Transfare To :";
-		AccountNumber = clsInputValidate::ReadString();
-		while (!clsBankClient::isClientExist(AccountNumber))
+		AccountNumber = ReadAccountNumber();
+		
+		while (!clsBankClient::isClientExist(AccountNumber)||AccountNumber==CLient1.GetAccountNumber())
 		{
-			cout << "Invaled Account number Try again :)";
-			AccountNumber = clsInputValidate::ReadString();
+			cout << "=================:)===================" << endl;
+			cout << "Invaled Account number Try again :)"<<endl;
+			cout << "=================:)===================" << endl;
+			AccountNumber = ReadAccountNumber();
 		}
-		clsBankClient Client2 = clsBankClient::Find(AccountNumber);
-		_PrintClientCard(Client2);
-		///...............................//
-		cout << "Enter Trancfare Amount :  ";
-		ReadAccountbanance = clsInputValidate::ReadDblNumber();
-		while (ReadAccountbanance > CLient1.GetAccountBalance() || ReadAccountbanance <= 0)
-		{
-			cout << "Amount Exceeds the available Balance , Enter A Nother Amount : ";
-			ReadAccountbanance = clsInputValidate::ReadDblNumber();
-		}
+
+		clsBankClient CLient2 = clsBankClient::Find(AccountNumber);
+		_PrintClientCard(CLient1);
+   
+		float ReadAmount = ReadAccountbanance();
 		char What = 'n';
 		cout << "Are you sure this Trancfare [Y / N] :  ";
 		cin >> ws >> What;
 		if (What == 'Y'||What=='y')
 		{
-			///...............[-]................//
-			Pass = CLient1.GetAccountBalance();
-			Pass -= ReadAccountbanance;
-			CLient1.SetAccountBalance(Pass);
-			///...............................//
-			/// 
-			///...............[+]................//
-			pass2 = Client2.GetAccountBalance();
-			pass2 += ReadAccountbanance;
-			Client2.SetAccountBalance(pass2);
-			///...............................//
+			
+			while (!CLient1.IsTransfer(ReadAmount, CLient2))
+			{
+				cout << "=================:)===================" << endl;
+				cout << "We're sorry, an error occurred. Please try again." << endl;
+				cout << "=================:)===================" << endl;
+				ReadAmount = ReadAccountbanance();
+			}
+				cout << "=================:)===================" << endl;
+				cout << "The transaction was successful. Please check your funds." << endl;
+				cout << "=================:)===================" << endl;
+				printf("\n");
+				_PrintClientCard(CLient1);
+				_PrintClientCard(CLient2);
 		}
 		else
 		{
-			cout << "Is not oprethon :) " << endl;
+			cout << "=================:)===================" << endl;
+			cout << "The operation was not completed :) " << endl;
+			cout << "=================:)===================" << endl;
 			return;
 		}
 
-		///_________________________________________________________??/
-		clsBankClient::Ensaveresult savingclient1 = CLient1.Save();
-		clsBankClient::Ensaveresult savingclient2 = Client2.Save();
-///_________________________________________________________?//
-			if (savingclient1== clsBankClient::Ensaveresult::EsaveSuceedad&& savingclient2 == clsBankClient::Ensaveresult::EsaveSuceedad)
-			{
-				cout << "Trancfare Done Suceedad :) " << endl<<endl;
-				cout << "Client Card :) " << endl;
-				_PrintClientCard(CLient1);
-				cout << endl;
-				_PrintClientCard(Client2);
-			}
-			else if (savingclient1 == clsBankClient::Ensaveresult::ESaveEmptyobject && savingclient2 == clsBankClient::Ensaveresult::ESaveEmptyobject)
-			{
-				cout << "Trancfare Failed Empty Object :) " << endl;
-			}
-			else if (savingclient1 == clsBankClient::Ensaveresult::svFaildAccountNumberExists && savingclient2 == clsBankClient::Ensaveresult::svFaildAccountNumberExists)
-			{
-				cout << "Trancfare Failed Account Number Exists :) " << endl;
-
-			}
-		
+			
 
 	}
 };

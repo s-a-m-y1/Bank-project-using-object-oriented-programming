@@ -292,5 +292,18 @@ public:
 
     }
 
+    bool IsTransfer(float Amount , clsBankClient& Client)
+    {
+        if (Amount > _AccountBalance || Amount <= 0 || this->GetAccountNumber() == Client.GetAccountNumber())
+        {
+            return false;
+        }
+        else
+        
+            Withdraw(Amount);
+            Client.Deposit(Amount);
+            return true;
+
+   }
 
 };

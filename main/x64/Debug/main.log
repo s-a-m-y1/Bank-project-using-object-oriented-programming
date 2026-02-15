@@ -50,10 +50,7 @@ C:\Users\SAMY\source\repos\main\main\clsAddNewClientScreen.h(23,67): warning C42
 C:\Users\SAMY\source\repos\main\main\clsUpdateClientScreen.h(22,67): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   (compiling source file 'main.cpp')
   
-C:\Users\SAMY\source\repos\main\main\TransferScreen.h(63,30): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  (compiling source file 'main.cpp')
-  
-C:\Users\SAMY\source\repos\main\main\TransferScreen.h(69,30): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\SAMY\source\repos\main\main\TransferScreen.h(30,53): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   (compiling source file 'main.cpp')
   
 C:\Users\SAMY\source\repos\main\main\clsTotalBalancesScreen.h(57,82): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
