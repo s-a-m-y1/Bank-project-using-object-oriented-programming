@@ -60,7 +60,7 @@ public:
 		}
 
 		clsBankClient CLient2 = clsBankClient::Find(AccountNumber);
-		_PrintClientCard(CLient1);
+		_PrintClientCard(CLient2);
    
 		float ReadAmount = ReadAccountbanance();
 		char What = 'n';
@@ -80,11 +80,14 @@ public:
 				cout << "The transaction was successful. Please check your funds." << endl;
 				cout << "=================:)===================" << endl;
 				printf("\n");
+				/*clsBankClient::RecordLine(CLient1, CLient2, ReadAmount);*/
 				_PrintClientCard(CLient1);
 				_PrintClientCard(CLient2);
+		
 		}
 		else
 		{
+			
 			cout << "=================:)===================" << endl;
 			cout << "The operation was not completed :) " << endl;
 			cout << "=================:)===================" << endl;

@@ -2,6 +2,8 @@
 #pragma once
 #include"clsPerson.h"
 #include<vector>
+#include"Global.h"
+#include"clsDate.h"
 #include<fstream>
 #include"clsInputValidate.h"
 class clsBankClient :public clsPerson
@@ -107,6 +109,13 @@ private:
     void _AddNew()
     {
         _AddDataLineToFile(LineRecord(*this));
+    }
+    static string _RecordL(clsBankClient Client1, clsBankClient client2, float Amount  )
+    {
+        string LineRecord = "";
+        LineRecord += clsDate::GetSystemDateTimeString() + "/#/" + Client1.GetAccountNumber() + "/#/" + client2.GetAccountNumber() + "/#/" + to_string(Amount) + "/#/" + to_string(Client1.GetAccountBalance()) + "/#/" + to_string(client2.GetAccountBalance()) + "/#/" + Current.GetUserName();
+        return LineRecord;
+
     }
 public:
     clsBankClient(EnMode Mode, string FirstName, string LastName, string Email, string Phone, string AccountNumber, string PinCode, float AccountBalance) : clsPerson(FirstName, LastName, Email, Phone)
@@ -291,6 +300,73 @@ public:
 
 
     }
+  
+    static void RecordLine( clsBankClient& Client1, clsBankClient &client2, float Amount)
+    {
+        fstream Add;
+        Add.open("TransferLog.txt", ios::app | ios::out);
+        if (Add.is_open())
+        {
+            string Line = _RecordL(Client1, client2, Amount);
+            Add << Line << endl;
+            Add.close();
+        }
+
+    }
+
+    //
+
+   static struct St_DataLogtransfer
+    {
+        string DataATime = "";
+        string ClientFrom = "";
+        string ClientTo = "";
+        float MoneyTrancfer = 0;
+        float BC1 = 0;
+        float BC2 = 0;
+        string thisUser = "";
+    };
+
+  static  St_DataLogtransfer TOStruct(string Line , string spretor = "/#/")
+    {
+        St_DataLogtransfer Data;
+        vector<string>DataLine = clsString::Split(Line , spretor );
+        if (DataLine.size()>=7)
+        {
+            Data.DataATime = DataLine[0];
+            Data.ClientFrom = DataLine[1];
+            Data.ClientTo = DataLine[2];
+            Data.MoneyTrancfer = stoi(DataLine[3]);
+            Data.BC1 = stoi(DataLine[4]);
+            Data.BC2 = stoi(DataLine[5]);
+            Data.thisUser = DataLine[6];
+
+        }
+        return Data;
+    }
+
+
+  static   vector<St_DataLogtransfer>LoadDataToVector()
+    {
+        vector<St_DataLogtransfer>VLoad;
+        fstream Load;
+        Load.open("TransferLog.txt", ios::in);
+        if (Load.is_open())
+        {
+            string Line = "";
+            while (getline(Load,Line))
+            {
+
+
+                VLoad.push_back(TOStruct(Line));
+            }
+            Load.close();
+                   
+
+        }
+        return VLoad;
+
+    }
 
     bool IsTransfer(float Amount , clsBankClient& Client)
     {
@@ -298,12 +374,11 @@ public:
         {
             return false;
         }
-        else
         
             Withdraw(Amount);
             Client.Deposit(Amount);
+            RecordLine(*this, Client, Amount);
             return true;
-
    }
 
 };

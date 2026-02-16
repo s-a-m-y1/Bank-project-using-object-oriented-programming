@@ -158,6 +158,7 @@
     <ClInclude Include="Global.h" />
     <ClInclude Include="ShowLoginRegisterScreen.h" />
     <ClInclude Include="TransferScreen.h" />
+    <ClInclude Include="TransfersLogScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

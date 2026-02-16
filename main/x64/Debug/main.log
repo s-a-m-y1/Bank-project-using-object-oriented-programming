@@ -38,10 +38,22 @@ C:\Users\SAMY\source\repos\main\main\clsInputValidate.h(117,26): warning C4244: 
 C:\Users\SAMY\source\repos\main\main\clsUser.h(125,17): warning C4091: 'static ': ignored on left of 'clsUser::St_DataSeachon' when no variable is declared
   (compiling source file 'main.cpp')
   
-C:\Users\SAMY\source\repos\main\main\clsBankClient.h(274,28): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\SAMY\source\repos\main\main\clsBankClient.h(319,18): warning C4091: 'static ': ignored on left of 'clsBankClient::St_DataLogtransfer' when no variable is declared
   (compiling source file 'main.cpp')
   
-C:\Users\SAMY\source\repos\main\main\clsBankClient.h(287,32): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\SAMY\source\repos\main\main\clsBankClient.h(283,28): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\SAMY\source\repos\main\main\clsBankClient.h(296,32): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\SAMY\source\repos\main\main\clsBankClient.h(339,38): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\SAMY\source\repos\main\main\clsBankClient.h(340,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\SAMY\source\repos\main\main\clsBankClient.h(341,28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   (compiling source file 'main.cpp')
   
 C:\Users\SAMY\source\repos\main\main\clsAddNewClientScreen.h(23,67): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
@@ -56,5 +68,5 @@ C:\Users\SAMY\source\repos\main\main\TransferScreen.h(30,53): warning C4244: '='
 C:\Users\SAMY\source\repos\main\main\clsTotalBalancesScreen.h(57,82): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
   (compiling source file 'main.cpp')
   
-C:\Users\SAMY\source\repos\main\main\clsBankClient.h(240,1): warning C4715: 'clsBankClient::Save': not all control paths return a value
+C:\Users\SAMY\source\repos\main\main\clsBankClient.h(249,1): warning C4715: 'clsBankClient::Save': not all control paths return a value
   main.vcxproj -> C:\Users\SAMY\source\repos\main\x64\Debug\main.exe
